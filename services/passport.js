@@ -3,13 +3,13 @@ const GoogleStrategy = require('passport-google-oauth20');
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
-const user =  mongoose.model('user');//one argument means fetching data an two means data input
+const User = mongoose.model("users");//one argument means fetching data an two means data input
 passport  .serializeUser((user,done)=>{
   done(null, user.id);
 });
 
 passport.deserializeUser((id,done)=>{
-  user.findById(id).then(user =>{
+  User.findById(id).then(user =>{
     done(null, user);
   });
 });
@@ -22,7 +22,7 @@ passport.use(new GoogleStrategy({
     proxy : true
   },
   async (accessToken,refreshToken,profile,done) => {
-     const existingUser = await user.findOne({googleId: profile.id})
+    const existingUser = await User.findOne({ googleId: profile.id });
       
       if(existingUser){
         return done(null, existingUser);
