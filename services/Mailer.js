@@ -35,7 +35,7 @@ class Mailer extends helper.Mail{
         const personalize = new helper.Personalization()
 
         this.recipients.forEach(recipient => {
-            personalize.addTo(this.recipient)
+            personalize.addTo(recipient)
         })
 
         this.addPersonalization(personalize)
