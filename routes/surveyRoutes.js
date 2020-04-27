@@ -18,7 +18,8 @@ module.exports = app => {
             dateSent : Date.now()
         })
 
-        const mailer = new Mailer(survey , surveyTemplates(survey))
+        const mailer = new Mailer(survey , surveyTemplate(survey))
+        
         try{
             await mailer.send()
             await survey.save()
